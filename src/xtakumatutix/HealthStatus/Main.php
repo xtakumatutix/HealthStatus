@@ -15,14 +15,18 @@ use pocketmine\event\entity\EntityRegainHealthEvent; //ステータス更新に�
 
 class Main extends PluginBase implements Listener {
 
+    /** @ver $config*/
+    private $config;
+
 	public function onEnable(){
-        $this->getServer()->getLogger()->info("[HealthStatus]読み込み完了v1.0.5_by.xtakumatutix");
+        $this->getServer()->getLogger()->info("[HealthStatus]読み込み完了v1.0.6_by.xtakumatutix");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        new Config($this->getDataFolder() . "config.yml", Config::YAML, array(
+
+        $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML, array(
         '現在の体力の前' => '§c[❤',
         '現在の体力と最大体力の間' => '/',
         '最大体力の後ろ' => ']',
-       ));
+       )); // ここのコードはPJZ9nさんに教えてもらいましたサンクス！！
     }
 
     public function Onjoin(PlayerJoinEvent $event){
@@ -31,11 +35,6 @@ class Main extends PluginBase implements Listener {
     }
 
     public function Respawn(PlayerRespawnEvent $event){
-        $player =$event->getPlayer(); 
-        $this->setTitle($player);
-    }
-
-    public function Move(PlayerMoveEvent $event){
         $player =$event->getPlayer(); 
         $this->setTitle($player);
     }
